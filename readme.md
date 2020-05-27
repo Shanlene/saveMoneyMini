@@ -1,5 +1,8 @@
 ## Save money miniprogram
-
+正在进行中。。
+正在进行中。。
+正在进行中。。
+正在进行中。。
 ### 项目框架
 &emsp;前端选择是微信小程序，后端是[leanCloud](https://leancloud.cn/)。
 ### 功能点及完成情况概述
