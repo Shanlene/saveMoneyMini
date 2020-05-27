@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/post/post",
+    "pages/privilege-list/privilege-list",
+    "pages/privilege-detail/privilege-detail",
+    "pages/personal-information/personal-information",
+    "pages/identity/identity",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#38373d",
+    "navigationBarTitleText": "拼单神器",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "borderStyle": "white",
+    "backgroundColor": "#f6f6f8",
+    "selectedColor": "#e12c15",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "拼单",
+        "iconPath": "images/order.png",
+        "selectedIconPath": "images/order-active.png"
+      },
+      {
+        "pagePath": "pages/privilege-list/privilege-list",
+        "text": "优惠信息",
+        "iconPath": "images/privilege.png",
+        "selectedIconPath": "images/privilege-active.png"
+      },
+      {
+        "pagePath": "pages/personal-information/personal-information",
+        "text": "我的",
+        "iconPath": "images/personal.png",
+        "selectedIconPath": "images/personal-active.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,66 @@
+.post-container {
+    background-color: #fff;
+    padding: 20rpx;
+    font: 12px/150% arial,\5FAE\8F6F\96C5\9ED1,\5b8b\4f53;
+}
+
+.post-container .label {
+    margin-left: 10rpx;
+    font-weight: bold;
+}
+
+.form-common-style {
+    box-sizing: border-box;
+    width: 690rpx;
+
+    /*padding: 10rpx;*/
+    margin: 10rpx 10rpx 10rpx 10rpx;
+
+    border: solid 2rpx #999;
+    border-radius: 10rpx;
+    box-shadow: 0 0 2rpx #888888;
+
+}
+
+.post-container .title {
+    
+}
+
+.post-container .content {
+    
+}
+
+.post-container .image-add-button {
+    line-height: 230rpx;
+    text-align: center;
+    font-size: 100rpx;
+    color: #999;
+}
+
+.images-container,
+.QRCode-container {
+    overflow: hidden;
+}
+
+.image-item {
+    box-sizing: border-box;
+    float: left;
+    width: 230rpx;
+    height: 230rpx;
+}
+
+.post-container .submit {
+    padding: 5rpx;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.my_wetoast_title {
+    font-size: 40rpx;
+    font-family: arial,\5FAE\8F6F\96C5\9ED1,\5b8b\4f53;
+}
+
+.red-star {
+    color: red;
+    font-size: 34rpx;
+}

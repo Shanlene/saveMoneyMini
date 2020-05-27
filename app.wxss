@@ -1,0 +1,19 @@
+/**app.wxss**/
+@import "libs/wetoast/wetoast.wxss";
+.container {
+
+  /*box-model*/
+  position:absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: flex-start;
+  box-sizing: border-box;
+
+  background-color: #f2f2f2;
+  min-height: 100%;
+  width: 100%;
+
+  /*typography*/
+  font: 12px/150% arial,\5FAE\8F6F\96C5\9ED1,\5b8b\4f53;
+} 
