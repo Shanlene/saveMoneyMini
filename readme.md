@@ -1,5 +1,4 @@
 ## Save money miniprogram
-![inroduce](./pictures/introduce.png)
 
 ### 项目框架
 &emsp;前端选择是微信小程序，后端是[leanCloud](https://leancloud.cn/)。
