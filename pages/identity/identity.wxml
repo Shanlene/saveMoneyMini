@@ -17,7 +17,7 @@
         <view class="label">
            所在学校
         </view>
-        <input bindinput="schoolEventFunc" id="school" class="form-common-style" placeholder="电子科技大学" auto-focus/>
+        <input bindinput="schoolEventFunc" id="school" class="form-common-style" placeholder="西安电子科技大学" auto-focus/>
         <view class="label">
            学号/教职工编号
         </view>

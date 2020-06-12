@@ -17,32 +17,36 @@
             <view class="order-content">
                 {{ order.content }}
             </view>
-            <view class="order-description">
+            <view class="order-description" wx:if="{{orders.description > 0 }}">
                 具体优惠形式：
                 {{ order.description }}
             </view>
+            <view class="order-description">
+            分类：
+                {{ array[order.mallKinds] }}
+            </view>
             <view class="piuctures-container">
-            <image class="content-picture" wx:for="{{ order.pictures }}" wx:key="{{ index }}" src="{{ item }}" background-size="cover" mode="aspectFit"></image>            
+            <image class="content-picture" wx:for="{{ order.pictures }}" wx:key="index" src="{{ item }}" background-size="cover" mode="aspectFit"></image>            
             </view>
             <view class="order-description" wx:if="{{order.url != ''}}">
                 活动页面链接
                 <view>{{ order.url }}</view>
             </view>
         </view>
-        
+        <!-- "/icons/commentsAvatar.png"  -->
         <view class="order-comments" wx:if="{{ order.comments && order.comments.length > 0 }}">
             评论
             <view class="order-comment" wx:for="{{ order.comments }}" wx:key="{{ index }}">
                 <view class="author">
-                    <image class="author-avatar" src="{{ item.author.avatarUrl}}" background-size="cover"></image>
+                    <image class="author-avatar" src="{{item.author.avatarUrl}}"
+                            background-size="cover"></image>
                     <view class="author-info">
                         <view class="author-name">{{ item.author.nickName}}</view>
                         <view class="post-time">{{ item.formatDate }}</view>
+                        
                     </view>
                 </view>
-                <view class="comment-str">
-                    {{ item.commentStr }}
-                </view>
+                <view class="comment-str" style="font-size:36rpx;" > {{ item.commentStr }} </view>
             </view>
         </view>
     </view>

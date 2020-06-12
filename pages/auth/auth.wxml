@@ -1,0 +1,26 @@
+<!--pages/auth/auth.wxml-->
+<view class="page" data-weui-theme="{{theme}}">
+	<view class="weui-msg">
+  <view class="weui-msg__icon-area">
+  <!-- 首页小图标 -->
+  <text class="icon-indexicon icon-style"></text>
+  </view>
+		<view class="weui-msg__text-area">
+			<!-- <h2 class="weui-msg__title">欢迎使用拼单小程序</h2> -->
+			<view class="weui-msg__desc">为保证您更好的拼单体验，
+      请授权微信登录。</view>
+		</view>
+		<view class="weui-msg__opr-area">
+			<view class="weui-btn-area">
+      <!-- button里面，wx:if = "{{canIuse}}" -->
+      <button 
+      class="weui-btn weui-btn_primary"
+      open-type="getUserInfo"
+      bindgetuserinfo="handleGetUserInfo">授权登录</button>
+      <!-- <view wx:else>请升级微信版本</view> -->
+    
+			</view>
+		</view>
+	</view>
+</view>
+

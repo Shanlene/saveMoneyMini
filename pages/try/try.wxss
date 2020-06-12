@@ -1,0 +1,55 @@
+/* pages/try/try.wxss */
+.searchbar-result
+{
+  margin-top:0;
+  font-size:14px
+}
+.searchbar-result .weui-cell__bd{
+  padding:2px 0 2px 20px;
+  color:var(--weui-FG-1)
+ }
+ .searchbar-result:before{
+   display:none
+ }
+
+ .categoryList{
+  width: 100%;
+  height: 300rpx;
+  border-bottom:10rpx solid #efb336; 
+}
+.category-info{
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  margin-top: 5rpx;
+  height: 80rpx;
+  width: 25%;
+}
+.category-image{
+  width: 88rpx;
+  height: 88rpx;
+}
+.category-text{
+  font-size: 25rpx;
+  width: 100%;
+  line-height: 30rpx
+}
+
+.other-navigator-hover {
+  color: #efb336;
+  font-size: 14px;
+}
+
+/* 图片预览 */
+.imgList{
+  width: 100%;
+  height: 800rpx;
+
+}
+.imgList .imgList-li{
+  width: 100%;
+}
+.imgList .imgList-li .img{
+  width: 400rpx;
+  height: 400rpx;
+}

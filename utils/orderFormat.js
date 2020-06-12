@@ -19,6 +19,10 @@ function orderFormate(obj) {
     retObj.createdAt = obj.createdAt;
     retObj.formatDate = util.formatTime(obj.updatedAt);
     retObj.QRCode = obj.get('QRCode');
+    retObj.mallKinds = obj.get('mallKinds');
+    //  出入openid
+    // const openid = wx.getStorageSync('openid')
+    retObj.openid = obj.get('openid');
     return retObj;
 }
 

@@ -5,17 +5,34 @@ const AV = require('../../libs/av-weapp.js');
 
 Page({
   data:{
-    userInfo: {}
+    userInfo: {},
+    
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     var that = this
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function(userInfo){
+      console.log(userInfo)
       //更新数据
       that.setData({
-        userInfo:userInfo
+        userInfo: userInfo
+        
       });
+
+      // 查看是否授权
+      wx.getSetting({
+        success: function(res){
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+            wx.getUserInfo({
+              success: function(res) {
+                console.log(res.userInfo)
+              }
+            })
+          }
+        }
+      })
     });
   },
   onReady:function(){
@@ -49,5 +66,12 @@ Page({
         }
       }
     });
-  }
+  },
+  handleGetUserInfo: function (e){
+    console.log(e)
+    console.log(e.detail.userInfo)
+
+     
+  },
+
 })

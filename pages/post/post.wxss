@@ -1,7 +1,7 @@
 .post-container {
     background-color: #fff;
     padding: 20rpx;
-    font: 12px/150% arial,\5FAE\8F6F\96C5\9ED1,\5b8b\4f53;
+    font: 13px/150% arial,\5FAE\8F6F\96C5\9ED1,\5b8b\4f53;
 }
 
 .post-container .label {
@@ -14,11 +14,11 @@
     width: 690rpx;
 
     /*padding: 10rpx;*/
-    margin: 10rpx 10rpx 10rpx 10rpx;
+    margin: 20rpx 20rpx 20rpx 20rpx;
 
-    border: solid 2rpx #999;
-    border-radius: 10rpx;
-    box-shadow: 0 0 2rpx #888888;
+    border: solid 3rpx #efb336;
+    border-radius: 5rpx;
+    box-shadow: 0 0 2rpx #efb336;
 
 }
 
@@ -53,6 +53,8 @@
     padding: 5rpx;
     margin-top: 20px;
     font-size: 12px;
+    background-color: #efb336;
+    color: #FFFFFF;
 }
 
 .my_wetoast_title {
@@ -64,3 +66,33 @@
     color: red;
     font-size: 34rpx;
 }
+
+.picker{
+    /* padding: 13px; */
+    /* background-color: #efb336; */
+    /* padding: 20rpx; */
+    font: 50rpx/150% arial,\5FAE\8F6F\96C5\9ED1,\5b8b\4f53;
+    /* margin-left: 10rpx;
+    font-weight: bold;
+    border: solid 3rpx #efb336;
+    border-radius: 5rpx;
+    box-shadow: 0 0 2rpx #efb336; */
+
+}
+
+.section{
+    margin-bottom: 40px;
+    /* font-size: 13rpx; */
+    /* background-color: #efb336; */
+}
+
+.section__title{
+    margin-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.picker-view-column {
+    border-radius: 30rpx 30rpx 0 0;
+    color: #444444;
+    font-size: 50rpx;
+}  

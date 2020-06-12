@@ -1,8 +1,18 @@
 <view class="container">
+    <!-- <w-header/> -->
     <view class="my-info">
         <image class="my-img" src="{{userInfo.avatarUrl}}"></image>
         <view class="my-name">{{userInfo.nickName}}</view>
         <view class="my-identification">未认证</view>
+        <!--wxml-->
+ 
+<!-- 需要使用 button 来授权登录 wx:if = "{{canIuse}}"-->
+        <!-- <button 
+                size="mini" 
+                class=""
+                open-type="getUserInfo"
+                bindgetuserinfo="handleGetUserInfo">授权登录</button>
+        <view wx:else>请升级微信版本</view> -->
     </view>
     <view class="order-info">
         <view class="info-icon order-start no-now">我发起的拼单</view>

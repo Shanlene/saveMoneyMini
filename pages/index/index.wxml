@@ -10,19 +10,63 @@
   <view class="location-info" bindtap="chooseCircle">
     当前圈子：西安电子科技大学北校区
   </view>
+  <!-- 搜索框 -->
+<block>
+      <view class="weui-search-bar {{inputShowed ? 'weui-search-bar_focusing' : ''}}" id="searchBar">
+        <form class="weui-search-bar__form">
+          <view class="weui-search-bar__box">
+            <i class="weui-icon-search"></i>
+                      <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" bindconfirm="searchConfirm" />
+                      <span class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput"></span>
+          </view>
+          <label class="weui-search-bar__label" bindtap="showInput">
+            <i class="weui-icon-search"></i>
+                      <span class="weui-search-bar__text">搜索</span>
+          </label>
+        </form>
+              <view class="weui-search-bar__cancel-btn searchbar-cancelbtn" bindtap="hideInput">取消</view>
+      </view>
+      <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+      </view>
+</block>
 
+<!-- 导航栏 -->
+<view class="navigate-box">
+  
+  <block wx:for="{{categoryList}}" wx:key="item">
+  <swiper-item>
+  <block wx:for="{{item}}" wx:key="item">
+    <view class="category-info">
+      <navigator url="{{item.url}}?kindid={{item.id}}&title={{item.name}}" open-type="navigate" 
+                 hover-class="other-navigator-hover" 
+                 bindtap="tapnavigator"
+                 data-kindid="{{item.id}}">
+        <image src="{{item.src}}" 
+        class="category-image"></image>
+        <view class="category-text">{{item.name}}</view>
+      </navigator>
+    </view>
+  </block>
+  </swiper-item>
+  </block>
+</view>
+
+
+<view wx:if="{{orders.length > 0 }}">
   <view class="order-item" wx:for="{{orders}}" wx:key="id" data-id="{{ item.id }}">
     <image class="author-avatar" src="{{ item.author.avatarUrl}}" background-size="cover"></image>
     <view class="author-info">
       <view class="author">{{ item.author.nickName}}</view>
       <view class="post-time">{{ item.formatDate}}</view>
     </view>
+    <!-- 管理订单的地方 -->
     <view class="manageOrder" catchtap="manageOrder" wx:if="{{manage.user}}" id="{{ item.id }}">
       <image class="manage-img" src="../../images/u1919.png"></image>
       <view wx:if="{{item.id == manage.orderId}}">
         <view wx:if="{{manage.do}}"  wx:for="{{manage.do}}" wx:key="id" class="manage-item" catchtap="deleteOrder" id="{{manage.orderId}}">{{item}}</view>
       </view>      
     </view>
+    <!-- 文字内容的地方 -->
     <view class="content-container" bindtap="navToDetail" data-id="{{ item.id }}">
        <image class="content-picture" src="{{ item.pictures[0] }}" background-size="cover" mode="aspectFit"></image>
        <view class="content-text">
@@ -48,5 +92,14 @@
       </view>
     </view>
   </view>
+  </view>
+  
+  <view wx:else class="null-type-group">
+  <view class="null-type">
+    <image class="nullIcon-style" src="/icons/result-null.png" mode="aspectFit"></image>
+    <view class="nulltext nulltext">结果空空...</view>
+  </view>
+  </view>
+  <!-- 添加新的拼单的icon -->
   <view class="post-button" bindtap="navToPost"></view>
 </view>

@@ -1,42 +1,52 @@
 {
   "pages": [
+    
+    "pages/auth/auth",
     "pages/index/index",
+    "pages/kindquery/kindquery",
     "pages/detail/detail",
     "pages/post/post",
     "pages/privilege-list/privilege-list",
     "pages/privilege-detail/privilege-detail",
     "pages/personal-information/personal-information",
     "pages/identity/identity",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/try/try"
+    
   ],
+  
+  "useExtendedLib": {
+    "weui": true
+  },
+  
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#38373d",
-    "navigationBarTitleText": "拼单神器",
-    "navigationBarTextStyle": "white"
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#efb336",
+    "navigationBarTitleText": "西电er一起来拼单！",
+    "navigationBarTextStyle": "white" 
   },
   "tabBar": {
     "borderStyle": "white",
     "backgroundColor": "#f6f6f8",
-    "selectedColor": "#e12c15",
+    "selectedColor": "#efb336",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "拼单",
-        "iconPath": "images/order.png",
-        "selectedIconPath": "images/order-active.png"
+        "text": "首页",
+        "iconPath": "icons/home.png",
+        "selectedIconPath": "icons/home-active.png"
       },
       {
         "pagePath": "pages/privilege-list/privilege-list",
         "text": "优惠信息",
-        "iconPath": "images/privilege.png",
-        "selectedIconPath": "images/privilege-active.png"
+        "iconPath": "icons/info.png",
+        "selectedIconPath": "icons/info-active.png"
       },
       {
         "pagePath": "pages/personal-information/personal-information",
         "text": "我的",
-        "iconPath": "images/personal.png",
-        "selectedIconPath": "images/personal-active.png"
+        "iconPath": "icons/my.png",
+        "selectedIconPath": "icons/my-active.png"
       }
     ]
   },

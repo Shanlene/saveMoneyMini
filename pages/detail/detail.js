@@ -15,7 +15,8 @@ Page({
     comments: [],
     commentObj: {},
     QRCodeShowFlag: false,
-    QRCodeShow: ''
+    QRCodeShow: '',
+    array: ['食品', '洗护', '美妆', '服饰','书籍', '百货','凑单','其他']
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -28,6 +29,10 @@ Page({
       });
       // 查询单个对象
     var orders = new AV.Query('orders');
+    wx.showLoading({
+      title: '正在加载中...',
+      mask: true,
+    })
     orders.get(options.objId).then(order => {
       order = orderFormat.orderFormat(order);
       that.setData({
@@ -36,6 +41,7 @@ Page({
       if( that.data.order.comments && that.data.order.comments.length > 0) {
         that.data.comments = that.data.order.comments;
       }
+      wx.hideLoading( )
     }, error => console.log(error));
     });
   },
@@ -60,20 +66,27 @@ Page({
   commentSubmit: function(e) {
     if(!this.data.commentObj.commentStr || this.data.commentObj.commentStr === ''){
       wx.showToast({
-        title: '评论为空',
-        duration: 2000
+        title: '当前评论为空哦~',
+        icon: "none",
+        duration: 1500
       });
+
       return false;
     }
+    // 在集合开头添加一个或更多元素
     this.data.comments.unshift(this.data.commentObj);
 
     var order = AV.Object.createWithoutData('orders', this.data.order.id);
+    console.log("当前的订单id"+ this.data.order.id);
+    console.log("当前的data:  " + this.data);
+    console.log("当前的评论列表" + this.data.comments);
     order.set('comments', this.data.comments);
     order.save().then(order => {
       wx.redirectTo({
         url: './detail?objId=' + this.data.order.id 
       });
     }, (error) => {
+      console.log(error)
         throw error;
     });
   },

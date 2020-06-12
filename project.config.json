@@ -28,7 +28,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.11.0",
 	"appid": "wx64f095053e81435d",
-	"projectname": "making-up-master",
+	"projectname": "les-save-money-zys",
 	"cloudfunctionTemplateRoot": "",
 	"watchOptions": {
 		"ignore": []
@@ -61,7 +61,15 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/try/try",
+					"pathName": "pages/try/try",
+					"query": "",
+					"scene": null
+				}
+			]
 		}
 	}
 }

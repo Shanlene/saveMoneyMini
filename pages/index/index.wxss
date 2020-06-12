@@ -1,6 +1,10 @@
 /**index.wxss**/
+/* page{
+  height: 100%;
+} */
 .index-container {
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
+  background-color: white;
 }
 
 /*.userinfo {
@@ -28,7 +32,6 @@
    /* Box-model */
   height: 30px;
   padding-left: 20px;
-  margin-bottom: 7px;
 
   /*Typography*/
   line-height: 30px;
@@ -197,4 +200,96 @@
   width: 280rpx;
   height: 280rpx;
   margin: 50rpx 0;
+}
+
+/* 搜索框UI */
+.searchbar-result
+{
+  margin-top:0;
+  font-size:14px
+}
+.searchbar-result .weui-cell__bd{
+  padding:2px 0 2px 20px;
+  color:var(--weui-FG-1)
+ }
+ .searchbar-result:before{
+   display:none
+ }
+ .weui-search-bar{position:relative;padding:16rpx;display:-webkit-box;display:-webkit-flex;display:flex;box-sizing:border-box;background-color:var(--weui-BG-0);-webkit-text-size-adjust:100%;-webkit-box-align:center;-webkit-align-items:center;align-items:center;
+  background-color: #efb336;}
+ .weui-search-bar__box {
+   position:relative;padding-left:28px;padding-right:32px;height:70rpx;width:100%;box-sizing:border-box;z-index:1;
+  }
+ .weui-search-bar__box .weui-search-bar__input{padding:0px 0;width:100%;height:1.14285714em;border:0;font-size:12px;line-height:1.14285714em;box-sizing:content-box;background:transparent;caret-color:var(--weui-BRAND);color:var(--weui-FG-0);
+  background:white}
+
+.weui-search-bar__label span{display:inline-block;font-size:12px;vertical-align:middle}
+
+  /* 搜索图标修复bug */
+  .weui-search-bar__label .weui-icon-search
+  {
+    margin-right:8rpx;
+    margin-top: -2rpx;
+}
+  .searchbar-cancelbtn{
+    color: white;
+    font-size: 12px;
+  }
+  .null-type-group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+  }
+  .null-type {
+    text-align: center;
+  }
+.nullIcon-style{
+  width: 100px;
+  height: 100px;
+}
+
+.nulltext {
+  height: 30px;
+  /* margin-top: 400rpx; */
+  font-size: 13px;
+}
+
+/* 导航栏 */
+.categoryList{
+  width: 100%;
+  height: 300rpx;
+  border-bottom:10rpx solid #efb336; 
+}
+.category-info{
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  margin-top: 5rpx;
+  height: 80rpx;
+  width: 25%;
+}
+.category-image{
+  width: 88rpx;
+  height: 88rpx;
+}
+.category-text{
+  font-size: 25rpx;
+  width: 100%;
+  line-height: 30rpx
+}
+
+.other-navigator-hover {
+  color: #efb336;
+  font-size: 14px;
+}
+.navigate-box {
+  width: 100%;
+  height: 300rpx;
+  padding: 10rpx 0rpx;
+  border-width: 0 0 10rpx 0;
+  border-color: #efb336;
+  border-style: solid;
+  box-sizing: border-box;
+  /* border-bottom:10rpx solid #efb336;  */
 }

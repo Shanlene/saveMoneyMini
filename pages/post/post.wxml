@@ -9,9 +9,9 @@
         <view class="label">
             内容  <span class='red-star'>*</span>
         </view>
-        <textarea bindblur="contentEventFunc" id="content" class="content form-common-style" maxlength="150" placeholder="示例：已选16元商品，还差4元，小伙伴们快来凑单！！" value="{{discount.content.detail || ''}}"/>
+        <textarea bindblur="contentEventFunc" id="content" class="content form-common-style" maxlength="150" placeholder="示例：已购促销xx牛奶5箱，明天到货。小伙伴们快来拼单！！" value="{{discount.content.detail || ''}}"/>
         <view class="label">
-            具体优惠形式
+            拼单优惠内容
         </view>
         <input bindinput="descriptionEventFunc" id="description" class="description form-common-style" placeholder="示例：199-100；满20起送等" value="{{discount.disForm || ''}}"/>
         <view class="label">
@@ -24,11 +24,11 @@
             </view>
         </view>
         <view class="label">
-            添加照片信息  <span class='red-star'>*</span>
+            添加照片信息（如订单截图等）
         </view>
         <view class="images-container">
             <!--<image wx:if="{{discount.img}}" src="{{discount.img}}" class="image-item"></image>-->
-            <image wx:for="{{ pictures }}" src="{{ item }}" wx:key="{{ index }}" class="image-item" mode="aspectFit"></image>
+            <image wx:for="{{ pictures }}" src="{{ item }}" wx:key="index" class="image-item" mode="aspectFit"></image>
             <view wx:if="{{pictures.length < 3}}" id="addImageButton" class="image-add-button form-common-style image-item" bindtap="chooseImage">
                 +
             </view>
@@ -37,6 +37,17 @@
             活动页面链接
         </view>
         <input bindinput="activityUrlEventFunc" id="url" class="url form-common-style" placeholder="选填"/>
+        
+        <view class="section">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}" header-text="拼单类型"
+                class="label">
+            拼单类型 <span class='red-star'>*</span>
+            <view class="label form-common-styleS">
+            {{array[index]}}
+            </view>
+        </picker>
+        </view>
+        
         <button formType="submit" type="primary" class="submit form-common-style"> 立即发布 </button>
     </view>
 </form>
