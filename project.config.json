@@ -1,5 +1,6 @@
 {
 	"description": "项目配置文件",
+	"cloudfunctionRoot": "functions/",
 	"packOptions": {
 		"ignore": []
 	},
@@ -23,13 +24,14 @@
 			"outputPath": ""
 		},
 		"useCompilerModule": true,
-		"userConfirmedUseCompilerModuleSwitch": false
+		"userConfirmedUseCompilerModuleSwitch": false,
+		"enhance": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.11.0",
 	"appid": "wx64f095053e81435d",
 	"projectname": "les-save-money-zys",
-	"cloudfunctionTemplateRoot": "",
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"watchOptions": {
 		"ignore": []
 	},
@@ -66,6 +68,20 @@
 					"id": 0,
 					"name": "pages/try/try",
 					"pathName": "pages/try/try",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "pages/personal-information/personal-information",
+					"pathName": "pages/personal-information/personal-information",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/notice/notice",
+					"pathName": "pages/notice/notice",
 					"query": "",
 					"scene": null
 				}

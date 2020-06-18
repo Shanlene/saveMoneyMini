@@ -73,5 +73,16 @@ Page({
 
      
   },
+  onShareAppMessage: function (res) {
+    return {
+      title: "邀请您一起来拼单~！" ,
+      path: '/pages/index/index' , 
+      imageUrl:'/images/overShare.png',
+    }
+  },
+  appShare: function(e){
+    console.log("点击了！")
+    this.onShareAppMessage()
+  }
 
 })

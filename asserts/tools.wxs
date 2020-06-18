@@ -1,0 +1,27 @@
+var islike = function(curorderid, likeOrderList){
+    // 是否已经存在
+    // var isExist = likeOrderList.findIndex((p) =>{
+    //   return p.id == curorderid;
+    // })
+    // console.log("in tools:"+ curorderid)
+      // console.log(likeOrderList)
+
+    for(var item; item < likeOrderList.length; ++item ){
+      console.log("在tools.wxs里面！！")
+      console.log(likeOrderList[item].id)
+      if (curorderid == likeOrderList[item].id){
+          console.log(likeOrderList[item].islike)
+          return likeOrderList[item].islike
+      }
+    }
+    return false
+
+
+    // if (isExist == -1){
+    //   return false
+    // }else{
+    //   console.log(likeOrderList[isExist].islike)
+    // }
+}
+
+module.exports = {islike: islike};

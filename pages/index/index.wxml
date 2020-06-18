@@ -1,15 +1,6 @@
 <!--index.wxml-->
 <view class="container index-container">
-  <!--<view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>-->
-  <view class="location-info" bindtap="chooseCircle">
-    当前圈子：西安电子科技大学北校区
-  </view>
+
   <!-- 搜索框 -->
 <block>
       <view class="weui-search-bar {{inputShowed ? 'weui-search-bar_focusing' : ''}}" id="searchBar">
@@ -60,35 +51,48 @@
       <view class="post-time">{{ item.formatDate}}</view>
     </view>
     <!-- 管理订单的地方 -->
-    <view class="manageOrder" catchtap="manageOrder" wx:if="{{manage.user}}" id="{{ item.id }}">
+    <!-- <view class="manageOrder" catchtap="manageOrder" wx:if="{{manage.user}}" id="{{ item.id }}">
       <image class="manage-img" src="../../images/u1919.png"></image>
       <view wx:if="{{item.id == manage.orderId}}">
         <view wx:if="{{manage.do}}"  wx:for="{{manage.do}}" wx:key="id" class="manage-item" catchtap="deleteOrder" id="{{manage.orderId}}">{{item}}</view>
       </view>      
-    </view>
+    </view> -->
     <!-- 文字内容的地方 -->
-    <view class="content-container" bindtap="navToDetail" data-id="{{ item.id }}">
-       <image class="content-picture" src="{{ item.pictures[0] }}" background-size="cover" mode="aspectFit"></image>
-       <view class="content-text">
+    <view class="content-container" data-id="{{ item.id }}">
+       <image class="content-picture"  src="{{ item.pictures.length > 0 ? item.pictures[0] : '../../icons/defaultImg.png'  }}" background-size="cover" mode="aspectFit"></image>
+       <view class="content-text" bindtap="navToDetail" data-id="{{ item.id }}">
           <view class="title">
-            {{ item.title }}
+            {{ item.title }} 
           </view>
-          <view class="content">
+          <view class="content"  >
             {{ item.content }}
           </view>
         </view>
         <view class="button">
-          <view class="button-item thumbs-up">赞</view>
-          <view class="button-item comment">评论</view>
-          <view class="button-item join" data-qrcode="{{ item.QRCode }}" catchtap="QRCodeTap">立即加入</view>
+          <view class="button-item thumbs-up" bindtap="clickLike" data-id='{{item._id}}' data-islike="{{item.like}}" data_idex="index">
+          <wxs src="../../asserts/tools.wxs" module="tools" />
+          <image  id="imageLike" class="button-like"  wx:if="{{item.like == true}}" src="../../icons/like.png" ></image>
+          <image  id="imageUnlike" class="button-like"  wx:else src="../../icons/unlike.png" ></image>
+         
+          <view class="button-item like"> 
+           {{item.likeCount}}</view>
+          </view>
+
+          <view class="button-item comment" bindtap="navToDetail" data-id="{{ item.id }}">
+          <image class="button-comment"   src="../../icons/comments.png"></image>
+          <view class="commentCount">{{item.comments.length > 0 ?item.comments.length:0 }}</view>
+          </view>
+          <view class="button-item join" data-qrcode="{{ item.QRCode }}" catchtap="QRCodeTap">
+          <image class="button-join"   src="../../icons/wantJoin.png"></image>
+          立即加入</view>
         </view>
     </view>
   </view>
   <view wx-if="{{ QRCodeShowFlag }}" class="QRCode-container" id="QRCode-container" catchtap="hideQRCode">
     <view class="QRCode-box" id="QRCode-box">
-      长按识别二维码加群
+      保存二维码后加群
       <view class="QRCImag-container">
-        <image src="{{ QRCodeShow }}" class="QRCode-show"></image>
+        <image src="{{ QRCodeShow }}" data-src="{{QRCodeShow}}" mode="widthFix" bindtap="previewImage" class="QRCode-show"></image>
       </view>
     </view>
   </view>

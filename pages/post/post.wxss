@@ -35,6 +35,7 @@
     text-align: center;
     font-size: 100rpx;
     color: #999;
+    margin: 8rpx 0rpx;
 }
 
 .images-container,
@@ -47,6 +48,7 @@
     float: left;
     width: 230rpx;
     height: 230rpx;
+    padding: 10rpx;
 }
 
 .post-container .submit {

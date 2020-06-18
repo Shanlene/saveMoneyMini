@@ -1,0 +1,44 @@
+<!--index.wxml-->
+<view class="container index-container">
+
+  <view class="order-item" wx:for="{{orders}}" wx:key="id" data-id="{{ item.id }}">
+    <image class="author-avatar" src="{{ item.author.avatarUrl}}" background-size="cover"></image>
+    <view class="author-info">
+      <view class="author">{{ item.author.nickName}}</view>
+      <view class="post-time">{{ item.formatDate}}</view>
+    </view>
+    <view class="manageOrder" catchtap="manageOrder" wx:if="{{manage.user}}" id="{{ item.id }}">
+      <image class="manage-img" src="../../images/u1919.png"></image>
+      <view wx:if="{{item.id == manage.orderId}}">
+        <view wx:if="{{manage.do}}"  wx:for="{{manage.do}}" wx:key="id" class="manage-item" catchtap="deleteOrder" id="{{manage.orderId}}">{{item}}</view>
+      </view>      
+    </view>
+    <view class="content-container"  data-id="{{ item.id }}">
+       <image class="content-picture" src="{{ item.pictures.length > 0 ? item.pictures[0] : '../../icons/defaultImg.png'  }}" background-size="cover" mode="aspectFit"></image>
+       <view class="content-text">
+          <view class="title">
+            {{ item.title }}
+          </view>
+          <view class="content">
+            {{ item.content }}
+          </view>
+        </view>
+        <view class="tools-item">
+        <view  data-id="{{ item.id }}">
+          <navigator  class="tools-item check" url='/pages/detail/detail?objId={{item.id}}'>查看</navigator>
+          <navigator  class="tools-item edit" url='/pages/Edit/Edit?objId={{item.id}}'>编辑</navigator>
+          <button class="tools-item delete"  data-id="{{ item.id }}" bindtap="navToDelete">删除</button>
+        </view>
+        </view>
+    </view>
+  </view>
+  <view wx-if="{{ QRCodeShowFlag }}" class="QRCode-container" id="QRCode-container" catchtap="hideQRCode">
+    <view class="QRCode-box" id="QRCode-box">
+      长按识别二维码加群
+      <view class="QRCImag-container">
+        <image src="{{ QRCodeShow }}" class="QRCode-show"></image>
+      </view>
+    </view>
+  </view>
+ 
+</view>

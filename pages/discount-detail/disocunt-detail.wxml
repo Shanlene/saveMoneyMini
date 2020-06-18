@@ -1,0 +1,40 @@
+<!--pages/discount-detail/disocunt-detail.wxml-->
+ 
+<!--<scroll-view class="test" bindscroll="EventHandle" scroll-x="{{ scrollX }}" scroll-y="{{ scrollY }}">
+    <image bindload="imageEvent" src="{{ url }}"></image>
+</scroll-view>-->
+<view class="container">
+    <view bindtap="" class="order-detail" data-id="{{ discount.id }}">
+        <view class="author">
+           <image class="author-avatar"   src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591293656617&di=8f02374cc2637680d2907f0fc3be4f87&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170826%2F931d2255c28d44f4b8c1beeae0816df3.jpeg' background-size="cover"></image>
+            <view class="author-info">
+                <view class="author-name">{{ discount.userid}}</view>
+                <view class="post-time">{{ discount.date}}</view>
+            </view>
+        </view>
+        <view class="order-container">
+            <view class="order-description">
+                【具体优惠形式】：    
+             </view>
+            <view class="order-content">
+                {{ discount.blog }}
+            </view>
+             <view class="piuctures-container">
+                <view class='view_img' wx:for="{{ discount.imgsrc}}" wx:key="{{ unique }}" wx:for-item="image"> 
+                    <image class="content-picture"  src="{{ image }}" background-size="cover" data-index='{{index}}' mode="aspectFit" bindtap="previewImg"></image>     
+               </view> 
+               <view style='clear:both;'></view>
+            
+            </view>
+             <view class="order-link" wx:if="{{order.url != ''}}">
+            
+                【活动页面链接】:
+                <!-- <block wx:for="{{categoryList}}" wx:key="item"> -->
+               <view class="discription" wx:for="{{discount.href}}" wx:key="item" >
+               <text selectable="true">{{ item }}</text></view> 
+
+            </view>
+        </view>
+    </view>
+</view>
+

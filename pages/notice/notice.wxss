@@ -1,0 +1,32 @@
+/* pages/notice/notice.wxss */
+.head-notice{
+  font-size: 38rpx;
+  font-weight: 500;
+  margin-top: 0.5em;
+  margin-bottom: 0.9em;
+  line-height: 1.4;
+  text-align: center;
+  color:#efb336;
+}
+.body-notice{
+
+  font-size: 28rpx;
+  margin-bottom: 1em;
+  color: darkgray;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.body-body{
+
+  font-size: 28rpx;
+  /* margin-bottom: 1em; */
+  color: darkgray;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.dateinfo{
+
+  text-align: end;
+  margin-bottom: 1.5em;
+}

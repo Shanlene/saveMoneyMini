@@ -1,0 +1,22 @@
+<!--pages/about/about.wxml-->
+<view class="box">
+<view class="head-about">关于</view>
+<view class="body-body"> 
+作品：朝拼夕省</view>
+<view class="body-body"> 
+队伍：乘风破浪的夜猫子
+</view>
+<view class="body-body"> 
+周奕杉   西安电子科技大学
+</view>
+<view class="body-about"> 
+廖羽乔   西安电子科技大学
+</view>
+
+<view class="body-body "> 
+如有任何建议，欢迎联系邮箱：</view>
+<view class="body-body "> 
+zhouyishanh@163.com
+</view>
+
+</view>

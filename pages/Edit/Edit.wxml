@@ -1,0 +1,59 @@
+<!--pages/Edit/Edit.wxml-->
+ 
+<import src="../../libs/wetoast/wetoast.wxml"/>
+
+<form bindsubmit="formSubmit">
+    <view class="post-container">
+        <view class="label">
+            标题 <span class='red-star'>*</span>
+        </view>
+        <input auto-focus bindinput="titleEventFunc" id="title" class="title form-common-style"    auto-focus value="{{order.title}}"/>
+        <view class="label">
+            内容  <span class='red-star'>*</span>
+        </view>
+        <textarea bindblur="contentEventFunc" id="content" class="content form-common-style" maxlength="150" placeholder="{{order.content}}" value="{{order.content}}"/>
+        <view class="label">
+            拼单优惠内容
+        </view>
+        <input bindinput="descriptionEventFunc" id="description" class="description form-common-style" placeholder="{{order.description}}" value="{{order.description}}"/>
+        <view class="label">
+            添加群二维码  <span class='red-star'>*</span> (长按删除图片)
+        </view>
+        <view class="QRCode-container">
+            <image wx:if="{{ QRCode !== '' }}" src="{{ QRCode }}" bindlongpress="deleteQRCode"  data-index="{{index}}" class="image-item" mode="aspectFit"></image>
+            <view wx:if="{{ QRCode === ''}}" id="addQRCode" class="image-add-button form-common-style image-item" bindtap="chooseQRCode">
+                +
+            </view>
+        </view>
+        <view class="label">
+            添加照片信息（如订单截图等）
+        </view>
+        <view class="images-container">
+           
+ 
+            <image wx:for="{{ pictures }}" bindlongpress="deleteImage" data-index="{{index}}" src="{{ item }}" wx:key=" index " class="image-item" mode="aspectFit"  ></image>
+            <view wx:if="{{pictures.length < 3}}" id="addImageButton" class="image-add-button form-common-style image-item" bindtap="chooseImage">
+                +
+            </view>
+        </view>
+        <view class="label">
+            活动页面链接
+        </view>
+        <input bindinput="activityUrlEventFunc" id="url" class="url form-common-style" placeholder="选填"/>
+        
+        <view class="section">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}" header-text="拼单类型"
+                class="label">
+            拼单类型 <span class='red-star'>*</span>
+            <view class="label form-common-styleS">
+            {{array[index]}}
+            </view>
+        </picker>
+        </view>
+        
+        <button formType="submit" type="primary" class="submit form-common-style"> 立即发布 </button>
+    </view>
+</form>
+
+<!-- wetoast -->
+<template is="wetoast" data="{{...__wetoast__}}"/>

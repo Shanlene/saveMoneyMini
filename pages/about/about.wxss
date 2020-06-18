@@ -1,0 +1,41 @@
+/* pages/about/about.wxss */
+.head-about{
+  font-size: 38rpx;
+  font-weight: 500;
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
+  line-height: 1.4;
+  text-align: center;
+  color:#efb336;
+}
+.body-about{
+  text-align: center;
+  font-size: 30rpx;
+  margin-bottom: 1.5em;
+  color:darkgray;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.body-body{
+  text-align: center;
+  font-size: 28rpx;
+  /* margin-bottom: 1em; */
+  color: darkgray;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.body-email{
+  text-align: end;
+  margin-bottom: 1.5em;
+}
+
+.box{
+  width: 100%;
+  height: 1000rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}

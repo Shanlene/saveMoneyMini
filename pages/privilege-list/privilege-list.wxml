@@ -1,5 +1,29 @@
-<view class="container">
-    <view wx:for="{{discount}}" bindtap="seeDetail" data-id="{{item.id}}" wx:key="{{ index }}" class="privilege-item">
-        <image class="privilege-image" src="{{ item.background_url }}"></image>
+<view class="container index-container">
+ 
+<view class='dis_item' wx:for="{{discounts}}" wx:key="id" data-id="{{ item.id }}">
+   <view class="author-all">
+    <image class="author-avatar"   src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591293656617&di=8f02374cc2637680d2907f0fc3be4f87&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170826%2F931d2255c28d44f4b8c1beeae0816df3.jpeg' background-size="cover"></image>
+   
+      <view class="author-info">
+       <view class="author">{{item.userid}}</view>  
+       <view class="post-time">{{item.date}}</view>
+      </view>
     </view>
+      <view class="content-container" bindtap="navToDetail" data-id="{{ item.id }}">
+     
+        <navigator    url='/pages/discount-detail/disocunt-detail?id={{item.id}}'> 
+           <image class="content-picture"  src="{{item.imgsrc.length>0 ? item.imgsrc[0]:'../../icons/defaultImg.png'}}" background-size="cover" mode="aspectFit"></image>
+           <view class="content-text">
+           <view class="content">
+            {{ item.blog }}
+            </view>
+            <navigator class="detail" url='/pages/discount-detail/disocunt-detail?id={{item.id}}'>查看详情</navigator>
+            </view>
+         </navigator>
+        
+    </view>
+ 
+  
+</view>
+
 </view>

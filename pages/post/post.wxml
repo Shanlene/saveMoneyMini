@@ -15,11 +15,11 @@
         </view>
         <input bindinput="descriptionEventFunc" id="description" class="description form-common-style" placeholder="示例：199-100；满20起送等" value="{{discount.disForm || ''}}"/>
         <view class="label">
-            添加群二维码  <span class='red-star'>*</span>
+            添加群二维码  <span class='red-star'>*</span> (长按删除图片)
         </view>
         <view class="QRCode-container">
-            <image wx:if="{{ QRCode !== '' }}" src="{{ QRCode }}" class="image-item"></image>
-            <view wx:if="{{ QRCode === ''}}" id="addQRCode" class="image-add-button form-common-style image-item" bindtap="chooseQRCode">
+            <image wx:if="{{ QRCode !== '' }}" src="{{ QRCode }}" bindlongpress="deleteQRCode" class="image-item" mode="aspectFit"></image>
+            <view wx:if="{{ QRCode === ''}}" id="addQRCode" class="image-add-button form-common-style image-item" bindtap="chooseQRCode" >
                 +
             </view>
         </view>
@@ -28,7 +28,7 @@
         </view>
         <view class="images-container">
             <!--<image wx:if="{{discount.img}}" src="{{discount.img}}" class="image-item"></image>-->
-            <image wx:for="{{ pictures }}" src="{{ item }}" wx:key="index" class="image-item" mode="aspectFit"></image>
+            <image wx:for="{{ pictures }}" src="{{ item }}" wx:key="index" bindlongpress="deleteImage" data-index="{{index}}" class="image-item" mode="aspectFit"></image>
             <view wx:if="{{pictures.length < 3}}" id="addImageButton" class="image-add-button form-common-style image-item" bindtap="chooseImage">
                 +
             </view>

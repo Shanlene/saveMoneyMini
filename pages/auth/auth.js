@@ -94,39 +94,63 @@ Page({
 
   },
   handleGetUserInfo: function (e){
-    console.log("获取用户信息回调："+e)
-    console.log(e.detail.userInfo)
-
+   // console.log("获取用户信息回调："+e)
+   // console.log(e.detail.userInfo)
+    var isLogin=false ;
     // 一键登录接口
+    var obj;
     AV.User.loginWithMiniApp().then(user => {
       app.globalData.user = user._hashedJSON.authData;
       
       // 字符串转为json
       var obj = JSON.parse(app.globalData.user);
-      console.log("获取id"+ obj.lc_weapp.openid)
+      //console.log("获取id"+ obj.lc_weapp.openid)
       app.globalData.userOpenId = obj.lc_weapp.openid ;
       // 进行本地缓存存储
       wx.setStorageSync('openid', app.globalData.userOpenId)
+      if (isLogin){ 
+        const openid = wx.getStorageSync('openid');
+        var user = new AV.Query('user');
+        user.matches('openid',openid);
+        user.descending('createdAt').find().then(function (results) {
+          results = results.map((curvalue) => {
+            return userFormat.userFormat(curvalue);
+          });
+           console.log(results);
+           if(results.length==0)
+           {
+            var orderObj = AV.Object.extend('user'),
+            user = new orderObj();
+            user.set('openid',openid);
+            user.save();
+           }
+        },);
+       
+        wx.switchTab({
+          url: '../index/index',
+        })
+      }
     }).catch(console.error);
     
 
 
     wx.getSetting({
       success: (res) => {
+        console.log("success")
         console.log('是否授权', res.authSetting['scope.userInfo'] !== undefined);
-        const isLogin = res.authSetting['scope.userInfo'] !== undefined ;
+        isLogin = res.authSetting['scope.userInfo'] !== undefined ;
         console.log(app.globalData.weixinLogin)
         app.globalData.weixinLogin = isLogin ;
         // 进行本地缓存存储
         wx.setStorageSync('isLogin', isLogin)
 
         // 如果已经登录
-        console.log(isLogin)
-        if (isLogin){ 
-          wx.switchTab({
-            url: '../index/index',
-          })
-        }
+         //console.log(isLogin)
+        // if (isLogin){ 
+        //  wx.switchTab({
+        //    url: '../index/index',
+        // })
+       // }
           }
         })
 

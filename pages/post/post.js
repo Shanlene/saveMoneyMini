@@ -5,7 +5,8 @@ var app = getApp();
 var warnImg = '/icons/warning.png';
 //查询用户信息
 const AV = require('../../libs/av-weapp.js');
-var pictures = [];
+var pic = [];
+
 Page({
   data:{
       pictures: [],
@@ -51,15 +52,16 @@ Page({
           name: '其他'
         }
       ],
-      index: '0'
+      index: '0',
+      contentCheck: '',
+      
   },
   onLoad:function(options){
-    new app.WeToast();
-    
+    new app.WeToast();    
 
     // 页面初始化 options为页面跳转所带来的参数
     this.data.pictures = [];
-    pictures = [];//防止缓存影响
+    pic = []
     
     var that = this;
     //调用应用实例的方法获取全局数据
@@ -103,6 +105,10 @@ Page({
     // 页面隐藏
   },
   onUnload:function(){
+    this.setData({
+      pictures : [],
+      QRCode : ''
+    })
     // 页面关闭
   },
   titleEventFunc: function(e) {
@@ -150,77 +156,205 @@ Page({
           })
           return false;
       }else {
+        wx.showLoading({
+          title: '正在发布中...',
+        })
+        
+        let contentCheck = this.data.title + this.data.content + this.data.description + this.data.activityURL ;
+        var ImageCheck = [] ;
+        // ImageCheck.push(this.data.pictures);
+        for(let i in this.data.pictures){
+          ImageCheck.push(this.data.pictures[i]) ;
+        }
+        ImageCheck.push(this.data.QRCode);
 
-          var orderObj = AV.Object.extend('orders'),
-            order = new orderObj();
-          const openid = wx.getStorageSync('openid')
-          order.set('title', this.data.title);
-          order.set('content', this.data.content);
-          order.set('description', this.data.description);
-          order.set('url', this.data.activityURL);
-          order.set('author', this.data.author);
-          order.set('pictures', this.data.pictures);
-          order.set('discountId', this.data.discountId);
-          order.set('QRCode', this.data.QRCode);
-          order.set('mallKinds', this.data.index);
-          order.set('openid', openid)
+        //  调用ContentCheck函数检查文字是否违规
+        console.log(this.data.contentCheck)
+        console.log("ImageCheck:" + ImageCheck)
+        console.log(ImageCheck.length)
+        console.log(typeof ImageCheck[0])
 
-          order.save().then(function (order) {
-            // 成功保存之后，执行其他逻辑.
-            // wx.navigateTo({
-            //     url: '../index/index'
-            // })
-            wx.navigateBack();
-          }, function (error) {
-            // 异常处理
-            console.log(error);
-          });
-      }
-  },  
-  chooseQRCode: function() {
-      //上传图片相关
-      var that = this;
-      wx.chooseImage({
-          count: 1, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-              // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-              let tempFilePaths = res.tempFilePaths;
-              tempFilePaths.forEach(function(url, index){
-                //   pictures.push(url);
-                //   that.setData({
-                //       pictures: pictures
-                //   });
-                let strRegex = "(.jpg|.png|.gif|.jpeg)$"; //用于验证图片扩展名的正则表达式
-                let re=new RegExp(strRegex);
-                if (re.test(url.toLowerCase())){
-                    let name = '' + index + '.' + url.split('.')[url.split('.').length - 1],
-                        localFile = url,
-                        image = new AV.File(name, {
-                            blob: {  
-                                uri: localFile,  
-                            }
-                        });
-                        image.save().then(function(file) {
-                            // 文件保存成功
-                            
-                            that.setData({
-                                QRCode: file.url()
-                            });
-                            
-                        }, function(error) {
-                            // 异常处理
-                            console.error(error);
-                        }); 
-                }else {
-                    throw "选择的不是图片";
+        wx.serviceMarket.invokeService({
+          service: 'wxee446d7507c68b11',
+          api: 'msgSecCheck',
+          data: {
+            "Action": "TextApproval",
+            "Text": contentCheck
+          },
+        }).then(res => {
+          // console.log(JSON.stringify(res.data.Response))
+
+          if(JSON.stringify(res.data.Response.EvilTokens) != '[]') {
+            var islegal = JSON.stringify(res.data.Response.EvilTokens[0].EvilFlag) ;
+            if (islegal != 0){
+              wx.hideLoading()
+              wx.showModal({
+                title: '待发布文字中包含违规内容，请确认后重试~'
+              })
+              
+              return false ;
+            }
+          }else{
+            
+            // content = "特3456书yuuo莞6543李zxcz蒜7782法fgnv级";
+            let isImageLegal = true
+            let legalList = []
+            for(let item in ImageCheck ){
+              console.log(item)
+              console.log(ImageCheck[item])
+                // 调用图片检查图片是否合法
+                let pro = new Promise((resolve) => {wx.serviceMarket.invokeService({
+                  service: 'wxee446d7507c68b11',
+                  api: 'imgSecCheck',
+                  data: {
+                    "Action": "ImageModeration",
+                    "Scenes": ["PORN", "TERRORISM"],
+                    "ImageUrl": ImageCheck[item],
+                  },
+                }).then(res => { 
+                  console.log("检测图片")
+                  console.log(JSON.stringify(res.data.Response))
+                  var isPorn = res.data.Response.PornResult.Suggestion;
+                  // var isText = res.data.Response.TextResult.Suggestion;
+                  var isTerror = res.data.Response.TerrorismResult.Suggestion;
+                  console.log(isPorn, isTerror);
+                  if ( isPorn == "BLOCK" || isTerror == "BLOCK"  ){
+                    isImageLegal = false;
                 }
-               
-              });
+                resolve(isImageLegal)
+              })
+            })
+              legalList.push(pro)
+            }
+            // 显示判断结果
+            Promise.all(legalList).then((res)=>{
+              console.log(res)
+              for (let i in res){
+                if(res[i] == false){
+                  wx.hideLoading()
+                  wx.showModal({
+                  title: '待发布图片中包含违规内容，请确认后重试~',
+                })
+                // this.setData({
+                //   pictures : [],
+                //   QRCode : ''
+                // })
+                  return false
+                }
+                // 如果到了最后一次还没有返回
+                console.log(i, res.length)
+                if(i == res.length-1){
+                    // 检查通过 可以上传
+                    var orderObj = AV.Object.extend('orders'),
+                    order = new orderObj();
+                    const openid = wx.getStorageSync('openid')
+                    order.set('title', this.data.title);
+                    order.set('content', this.data.content);
+                    order.set('description', this.data.description);
+                    order.set('url', this.data.activityURL);
+                    order.set('author', this.data.author);
+                    order.set('pictures', this.data.pictures);
+                    console.log(this.data.pictures)
+                    order.set('discountId', this.data.discountId);
+                    order.set('QRCode', this.data.QRCode);
+                    order.set('mallKinds', this.data.index);
+                    order.set('openid', openid)
+
+                    order.save().then(function (order) {
+                      wx.hideLoading()
+                      wx.navigateBack();
+                    }, function (error) {
+                      // 异常处理
+                      console.log(error);
+                    });
+                    wx.hideLoading()
+
+
+                }
+              }
+
+
+            })
+
+
           }
+        
+
+        }
+        
+      )
+  }
+},  
+chooseQRCode: function() {
+    //上传图片相关
+    var that = this;
+    wx.chooseImage({
+        count: 1, // 默认9
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: function (res) {
+            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+            let tempFilePaths = res.tempFilePaths;
+            tempFilePaths.forEach(function(url, index){
+              //   pictures.push(url);
+              //   that.setData({
+              //       pictures: pictures
+              //   });
+              let strRegex = "(.jpg|.png|.gif|.jpeg)$"; //用于验证图片扩展名的正则表达式
+              let re=new RegExp(strRegex);
+              if (re.test(url.toLowerCase())){
+                  let name = '' + index + '.' + url.split('.')[url.split('.').length - 1],
+                      localFile = url,
+                      image = new AV.File(name, {
+                          blob: {  
+                              uri: localFile,  
+                          }
+                      });
+                      
+                      image.save().then(function(file) {
+                          // 文件保存成功
+                          
+                          that.setData({
+                              QRCode: file.url()
+                          });
+                          
+                      }, function(error) {
+                          // 异常处理
+                          console.error(error);
+                      }); 
+              }else {
+                  throw "选择的不是图片";
+              }
+              
+            });
+        }
+    });
+},  
+  deleteQRCode: function (e) {
+    var that = this;
+    var images = that.data.QRCode;
+    var index = e.currentTarget.dataset.index;//获取当前长按图片下标
+    wx.showModal({
+     title: '提示',
+     content: '确定要删除此图片吗？',
+     success: function (res) {
+      if (res.confirm) {
+       console.log('点击确定了');
+ 
+       images='';
+       that.setData({
+        QRCode: images
+    });
+      } else if (res.cancel) {
+        console.log('点击取消了');
+        return false;    
+       }
+      that.setData({
+       images
       });
-  },  
+     }
+    })
+   },
   chooseImage: function() {
       //上传图片相关
       var that = this;
@@ -247,12 +381,16 @@ Page({
                                 uri: localFile,  
                             }
                         });
+
                         image.save().then(function(file) {
                             // 文件保存成功
-                            
-                            pictures.push(file.url());
+                            console.log(image.attributes.url)
+
+
+
+                            pic.push(file.url());
                             that.setData({
-                                pictures: pictures
+                                pictures: pic
                             });
                         }, function(error) {
                             // 异常处理
@@ -266,11 +404,97 @@ Page({
           }
       });
   },
+  deleteImage: function (e) {
+    var that = this;
+    var images = that.data.pictures;
+    var index = e.currentTarget.dataset.index;//获取当前长按图片下标
+    wx.showModal({
+     title: '提示',
+     content: '确定要删除此图片吗？',
+     success: function (res) {
+      if (res.confirm) {
+       console.log('点击确定了');
+ 
+       images.splice(index, 1);
+       that.setData({
+        pictures: images
+    });
+    pic = images;
+    
+    console.log(pic)
+      } else if (res.cancel) {
+        console.log('点击取消了');
+        return false;    
+       }
+      that.setData({
+       images
+      });
+     }
+    })
+   },
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     
     this.setData({
       index: e.detail.value
     })
+  },
+  async doImgSecCheck  (content) {
+    // content = "特3456书yuuo莞6543李zxcz蒜7782法fgnv级";
+    console.log("在doImgSecCheck里面")
+    console.log(content.length)
+    let isImageLegal = true
+    let legalList = []
+    for(let item in content ){
+      console.log(item)
+      console.log(content[item])
+        // 调用图片检查图片是否合法
+        let pro = new Promise((resolve) => {wx.serviceMarket.invokeService({
+          service: 'wxee446d7507c68b11',
+          api: 'imgSecCheck',
+          data: {
+            "Action": "ImageModeration",
+            "Scenes": ["PORN", "TERRORISM", "TEXT"],
+            "ImageUrl": content[item],
+          },
+        }).then(res => { 
+          console.log("检测图片")
+          // console.log(JSON.stringify(res))
+          var isPorn = res.data.Response.PornResult.Suggestion;
+          var isText = res.data.Response.TextResult.Suggestion;
+          var isTerror = res.data.Response.TerrorismResult.Suggestion;
+          console.log(isPorn, isTerror,isText);
+          if ( isPorn != "PASS" || isTerror != "PASS" || isText != "PASS" ){
+            isImageLegal = false;
+            // return isImageLegal;
+            // break;
+        }
+        resolve(isImageLegal)
+      })
+    })
+  
+
+      legalList.push(pro)
+    }
+    
+    // return isImageLegal
+    // console.log("isImageLegal" + isImageLegal)
+    // if(isImageLegal == false){
+    //       wx.showModal({
+    //         title: '待发布图片中包含违规内容，请确认后重试~',
+    //       })
+    //       return false
+  
+    // }
+    Promise.all(legalList).then((res)=>{
+      console.log(res)
+      if(res == false){
+        return false
+      }
+
+    })
+   
+      
   }
+
 })

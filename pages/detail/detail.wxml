@@ -26,7 +26,7 @@
                 {{ array[order.mallKinds] }}
             </view>
             <view class="piuctures-container">
-            <image class="content-picture" wx:for="{{ order.pictures }}" wx:key="index" src="{{ item }}" background-size="cover" mode="aspectFit"></image>            
+            <image class="content-picture" wx:for="{{ order.pictures }}" wx:key="index" src="{{ item }}" background-size="cover" mode="aspectFit"  bindtap="previewImg"></image>            
             </view>
             <view class="order-description" wx:if="{{order.url != ''}}">
                 活动页面链接
@@ -43,7 +43,6 @@
                     <view class="author-info">
                         <view class="author-name">{{ item.author.nickName}}</view>
                         <view class="post-time">{{ item.formatDate }}</view>
-                        
                     </view>
                 </view>
                 <view class="comment-str" style="font-size:36rpx;" > {{ item.commentStr }} </view>
@@ -62,7 +61,7 @@
         <view class="QRCode-box" id="QRCode-box">
         长按识别二维码：
         <view class="QRCImag-container">
-            <image src="{{ QRCodeShow }}" class="QRCode-show"></image>
+            <image src="{{ QRCodeShow }}" data-src="{{QRCodeShow}}" mode="widthFix" bindtap="previewQRCode"  class="QRCode-show"></image>
         </view>
         </view>
     </view>

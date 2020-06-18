@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "pages/auth/auth",
     "pages/index/index",
     "pages/kindquery/kindquery",
@@ -11,19 +10,21 @@
     "pages/personal-information/personal-information",
     "pages/identity/identity",
     "pages/logs/logs",
-    "pages/try/try"
-    
+    "pages/discount-detail/disocunt-detail",
+    "pages/my-order/my-order",
+    "pages/Edit/Edit",
+    "pages/my-like-order/my-like-order",
+    "pages/notice/notice",
+    "pages/about/about"
   ],
-  
   "useExtendedLib": {
     "weui": true
   },
-  
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#efb336",
-    "navigationBarTitleText": "西电er一起来拼单！",
-    "navigationBarTextStyle": "white" 
+    "navigationBarTitleText": "朝拼夕省",
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "borderStyle": "white",

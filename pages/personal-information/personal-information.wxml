@@ -3,7 +3,7 @@
     <view class="my-info">
         <image class="my-img" src="{{userInfo.avatarUrl}}"></image>
         <view class="my-name">{{userInfo.nickName}}</view>
-        <view class="my-identification">未认证</view>
+        <!-- <view class="my-identification">未认证</view> -->
         <!--wxml-->
  
 <!-- 需要使用 button 来授权登录 wx:if = "{{canIuse}}"-->
@@ -15,13 +15,17 @@
         <view wx:else>请升级微信版本</view> -->
     </view>
     <view class="order-info">
-        <view class="info-icon order-start no-now">我发起的拼单</view>
-        <view class="info-icon order-participate no-now">我参与的拼单</view>
-        <view class="info-icon order-identification" bindtap="myIdenti">校园身份认证</view>
+        <navigator url='/pages/my-order/my-order' class="navigatorclass"><view class="info-icon order-start"> 
+        我发起的拼单</view></navigator>
+        <navigator url='/pages/my-like-order/my-like-order' class="navigatorclass"><view class="info-icon order-participate"> 我赞过的拼单</view></navigator>
+       
+        <!-- <view class="info-icon order-identification" bindtap="myIdenti">校园身份认证</view> -->
     </view>
     <view class="other-info">
-        <view class="info-icon other-invite no-now">邀请好友</view>
-        <view class="info-icon other-use no-now">使用须知</view>
-        <view class="info-icon other-about no-now">关于</view>
+        <view class="info-icon other-invite no-now" bindtap="appShare" open-type='share'>
+        <button  open-type="share"  class="appshare" hover-class=""></button>
+        邀请好友</view>
+        <navigator url='/pages/notice/notice' class="navigatorclass"><view class="info-icon other-use no-now">使用须知</view></navigator>
+        <navigator url='/pages/about/about' class="navigatorclass"><view class="info-icon other-about no-now">关于</view></navigator>
     </view>
 </view>

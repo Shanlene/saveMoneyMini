@@ -45,6 +45,25 @@ Page({
     }, error => console.log(error));
     });
   },
+  previewImg:function(e){
+        
+    var current = e.target.dataset.src;
+    var index = e.currentTarget.dataset.index;
+    var listarray = this.data.order.pictures;
+    console.log(current);
+    wx.previewImage({
+      current:listarray[index],
+      urls:this.data.order.pictures
+    })
+},
+previewQRCode: function(e) {
+  var current = e.target.dataset.src;
+  console.log(current)
+  wx.previewImage({
+    current:current,
+    urls: [current]
+  })
+},
   onReady:function(){
     // 页面渲染完成
   },
@@ -70,7 +89,6 @@ Page({
         icon: "none",
         duration: 1500
       });
-
       return false;
     }
     // 在集合开头添加一个或更多元素
@@ -103,5 +121,12 @@ Page({
         QRCodeShowFlag: false
       });
     }
-  }
+  },
+  onShareAppMessage: function (res) {
+    return {
+      title: "我发现了一个不错的拼单，来看看吧！" ,
+      path: '/pages/detail/detail?objId=' + this.data.order.id, 
+      // imageUrl: './icons/welcome.png'//这个是分享的图片
+    }
+  },
 })
